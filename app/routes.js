@@ -1,12 +1,9 @@
 import { index, route } from "@react-router/dev/routes";
 
 export default [
-  // Cesta: / (Index, Domů - seznam událostí)
-  index("./index.jsx"),
+  // Změněno z "./index.jsx" na "./routes/index.jsx"
+  index("./routes/index.jsx"),
   
-  // Cesta: /events/new (Přidat událost)
-  route("events/new", "./new-event.jsx"),
-
-  // Cesta: /events/:id (Detail události, :id je dynamický parametr)
-  route("events/:id", "./event-detail.jsx")
+  route("events/new", "./routes/new-event.jsx"),
+  route("events/:id", "./routes/event-detail.jsx")
 ];
