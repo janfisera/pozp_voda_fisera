@@ -58,11 +58,12 @@ export default function EventDetail() {
 
   return (
     <>
-      <Header />
-      <div className="max-w-xl mx-auto p-6 mt-6">
-        {!isEditing ? (
-          /* --- MÓD ZOBRAZENÍ --- */
-          <div className="bg-white rounded-3xl shadow-lg p-8 border-t-8 border-blue-500">
+      <section className="bg-gray-400 h-screen">
+        <Header />  
+        <div className="max-w-xl mx-auto p-6 pt-10">
+          {!isEditing ? (
+            /* --- MÓD ZOBRAZENÍ --- */
+            <div className="bg-white rounded-3xl shadow-lg p-8 border-t-8 border-blue-500">
             <div className="flex justify-between items-start mb-4">
               <span className="bg-gray-100 px-4 py-1 rounded-full text-sm font-bold text-gray-600">
                 {event.zkratka} | {event.datum}
@@ -102,49 +103,106 @@ export default function EventDetail() {
             onSubmit={handleUpdate}
             className="bg-white rounded-3xl shadow-lg p-8 space-y-4"
           >
-            <h2 className="text-2xl font-black mb-4">Upravit událost</h2>
+            <h2 className="text-2xl text-center mb-4">Upravit událost</h2>
 
-            <div>
-              <label className="block text-xs font-bold text-gray-400 mb-1">
+            <div className="grid grid-cols-[6rem_minmax(0,1fr)] items-center gap-4">
+              <label className="text-right text-sm font-bold text-gray-700">
                 Název:
               </label>
               <input
                 type="text"
-                className="w-full border-2 p-3 rounded-xl focus:border-blue-500 outline-none"
+                className="w-full border p-2 rounded-lg focus:border-blue-500 outline-none"
                 value={event.nazev}
                 onChange={(e) => setEvent({ ...event, nazev: e.target.value })}
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-bold uppercase text-gray-400 mb-1">
+            <div className="grid grid-cols-[6rem_minmax(0,1fr)] items-center gap-4">
+              <label className="text-right text-sm font-bold text-gray-700">
+                Datum:
+              </label>
+              <input
+                type="date"
+                className="w-full border p-2 rounded-lg focus:border-blue-500 outline-none"
+                value={event.datum}
+                onChange={(e) => setEvent({ ...event, datum: e.target.value })}
+              />
+            </div>
+
+            <div className="grid grid-cols-[6rem_minmax(0,1fr)] items-center gap-4">
+              <label className="text-right text-sm font-bold text-gray-700">
+                Předmět:
+              </label>
+              <input
+                type="text"
+                className="w-full border p-2 rounded-lg focus:border-blue-500 outline-none"
+                value={event.zkratka}
+                onChange={(e) => setEvent({ ...event, zkratka: e.target.value })}
+              />
+            </div>
+
+
+            <div className="grid grid-cols-[6rem_minmax(0,1fr)] items-start gap-4">
+              <label className="text-right text-sm font-bold text-gray-700 mt-2">
                 Popis:
               </label>
               <textarea
-                className="w-full border-2 p-3 rounded-xl h-32 focus:border-blue-500 outline-none"
+                className="w-full border p-2 rounded-lg h-32 focus:border-blue-500 outline-none"
                 value={event.popis}
                 onChange={(e) => setEvent({ ...event, popis: e.target.value })}
               ></textarea>
             </div>
 
-            <div className="flex gap-4">
-              <button
-                type="submit"
-                className="flex-1 bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600"
-              >
-                Uložit změny
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsEditing(false)}
-                className="bg-gray-100 text-gray-500 font-bold px-6 rounded-xl"
-              >
-                Zrušit
-              </button>
+            <div className="grid grid-cols-[6rem_minmax(0,1fr)] items-center gap-4">
+              <div className="text-right text-sm font-bold text-gray-700 mt-2">
+                Test:
+              </div>
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={event.test === 1}
+                  onChange={(e) => setEvent({ ...event, test: e.target.checked ? 1 : 0 })}
+                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span className="text-sm text-gray-700">Je to test?</span>
+              </label>
             </div>
+
+            <button
+              type="submit"
+              className="w-50 flex m-auto mb-3 items-center justify-center gap-2 bg-blue-500 text-white font-bold py-3 rounded-3xl hover:bg-blue-600 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+                aria-hidden="true"
+              >
+                <path d="M5 5a1 1 0 011-1h10a1 1 0 011 1v2h2a1 1 0 110 2h-1v10a2 2 0 01-2 2H6a2 2 0 01-2-2V9H3a1 1 0 110-2h2V5zm2 2V6h8v1H7zm-1 4h10v7H6v-7z" />
+              </svg>
+              Uložit změny
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="w-50 flex m-auto items-center justify-center gap-2 bg-red-500 text-white font-bold py-3 rounded-3xl hover:bg-red-600 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+                aria-hidden="true"
+              >
+                <path d="M9 3a1 1 0 00-1 1H5a1 1 0 100 2h14a1 1 0 100-2h-3a1 1 0 00-1-1H9zm-2 6a1 1 0 011 1v9a2 2 0 002 2h6a2 2 0 002-2v-9a1 1 0 112 0v9a4 4 0 01-4 4H9a4 4 0 01-4-4v-9a1 1 0 011-1z" />
+              </svg>
+              Smazat událost
+            </button>
           </form>
         )}
       </div>
+    </section>
     </>
   );
 }
