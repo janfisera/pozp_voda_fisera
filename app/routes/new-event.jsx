@@ -35,29 +35,29 @@ export default function NewEvent() {
   };
 
   return (
-    <>
+    <section className="bg-gray-400 h-screen">
       <Header />
-      <div className="max-w-md mx-auto p-6 bg-white mt-10 rounded-2xl shadow-lg">
-        <h2 className="text-2xl font-black mb-6">Nová událost</h2>
+      <div className="max-w-sm mx-auto p-4 bg-white mt-10 rounded-2xl shadow-lg">
+        <h2 className="text-xl mb-6 text-center">Nová událost</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-bold mb-1">Název</label>
+          <div className="flex items-center">
+            <label className="w-24 text-right text-sm mr-4 text-gray-500">Název:</label>
             <input
               type="text"
               required
-              className="w-full border p-2 rounded-lg"
+              className="flex-1 border-b-2 bg-gray-300 p-2 rounded-lg"
               onChange={(e) =>
                 setFormData({ ...formData, nazev: e.target.value })
               }
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-bold mb-1">Předmět</label>
+          <div className="flex items-center">
+            <label className="w-24 text-right text-sm mr-4 text-gray-500">Předmět:</label>
             <select
               required
-              className="w-full border p-2 rounded-lg"
+              className="flex-1 border-b-2 bg-gray-300 p-2 rounded-lg"
               onChange={(e) =>
                 setFormData({ ...formData, zkratka: e.target.value })
               }
@@ -71,22 +71,22 @@ export default function NewEvent() {
             </select>
           </div>
 
-          <div>
-            <label className="block text-sm font-bold mb-1">Datum</label>
+          <div className="flex items-center">
+            <label className="w-24 text-right text-sm mr-4 text-gray-500">Datum:</label>
             <input
               type="date"
               required
-              className="w-full border p-2 rounded-lg"
+              className="flex-1 border-b-2 bg-gray-300 p-2 rounded-lg"
               onChange={(e) =>
                 setFormData({ ...formData, datum: e.target.value })
               }
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-bold mb-1">Popis</label>
+          <div className="flex items-start">
+            <label className="w-24 text-right text-sm mr-4 mt-2 text-gray-500">Popis:</label>
             <textarea
-              className="w-full border p-2 rounded-lg"
+              className="flex-1 border-b-2 bg-gray-300 p-2 rounded-lg"
               onChange={(e) =>
                 setFormData({ ...formData, popis: e.target.value })
               }
@@ -94,27 +94,26 @@ export default function NewEvent() {
           </div>
 
           <div className="flex items-center">
+            <label htmlFor="test" className="text-sm mr-2 text-gray-500">
+              Test:
+            </label>
             <input
               type="checkbox"
               id="test"
-              className="mr-2"
               onChange={(e) =>
                 setFormData({ ...formData, test: e.target.checked ? 1 : 0 })
               }
             />
-            <label htmlFor="test" className="font-bold">
-              Je to test? (Bude červený)
-            </label>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-bold py-3 rounded-xl hover:bg-blue-600 transition-colors"
+            className="w-40 mx-auto block bg-blue-500 text-white font-bold py-3 rounded-3xl hover:bg-blue-600 transition-colors"
           >
-            Uložit událost
+            + Přidat
           </button>
         </form>
       </div>
-    </>
+    </section>
   );
 }
