@@ -1,62 +1,68 @@
 import { useState, useEffect } from "react";
+import { selectRecords } from "../server/sql"; // Cesta k tvému sql.js
 import EventItem from "../components/EventItem";
 
-/**
- * Stránka se seznamem událostí (Route /events)
- */
 export default function EventsPage() {
   const [events, setEvents] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. Načtení dat z databáze (Epsilon server)
   useEffect(() => {
-    const fetchData = async () => {
+    async function loadData() {
       try {
-        // Tady nahraď URL adresy tvými reálnými cestami k PHP skriptům na Epsilonu
-        const eventsRes = await fetch(
-          "https://epsilon.spstrutnov.cz/voda/api/get_events.php",
-        );
-        const subjectsRes = await fetch(
-          "https://epsilon.spstrutnov.cz/voda/api/get_subjects.php",
-        );
+        // Načteme události a předměty z tvých tabulek
+        const eventsData = await selectRecords("pzop_event");
+        const subjectsData = await selectRecords("pzop_subject");
 
-        const eventsData = await eventsRes.json();
-        const subjectsData = await subjectsRes.json();
-
-        setEvents(eventsData);
-        setSubjects(subjectsData);
+        // Uložíme do stavu (pokud selectRecords vrátí pole)
+        if (eventsData) setEvents(eventsData);
+        if (subjectsData) setSubjects(subjectsData);
       } catch (error) {
-        console.error("Chyba při načítání dat:", error);
+        console.error("Chyba při načítání dat z DB:", error);
       } finally {
         setLoading(false);
       }
-    };
+    }
 
-    fetchData();
+    loadData();
   }, []);
 
   if (loading)
-    return <div className="p-10 text-center">Načítám události...</div>;
+    return (
+      <div className="p-10 text-center font-bold">
+        Načítám data z databáze...
+      </div>
+    );
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">Seznam událostí</h1>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-2xl mx-auto">
+        <header className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-black text-gray-900 uppercase">
+              Události
+            </h1>
+            <p className="text-gray-500">Aktuální přehled úkolů a testů</p>
+          </div>
+          {/* Tady může být tlačítko pro přidání, pokud ho budete chtít */}
+        </header>
 
-      {/* 2. Vykreslení komponent pomocí .map() */}
-      <div className="flex flex-col">
-        {events.length > 0 ? (
-          events.map((event) => {
-            // Najdeme ikonu předmětu podle zkratky
-            const subject = subjects.find((s) => s.zkratka === event.zkratka);
+        <div className="space-y-1">
+          {events.length > 0 ? (
+            events.map((event) => {
+              // Najdeme ikonu předmětu podle zkratky
+              const subject = subjects.find((s) => s.zkratka === event.zkratka);
 
-            return (
-              <EventItem key={event.id} event={event} icon={subject?.ikona} />
-            );
-          })
-        ) : (
-          <p className="text-gray-500">Žádné události nebyly nalezeny.</p>
-        )}
+              return (
+                <EventItem key={event.id} event={event} icon={subject?.ikona} />
+              );
+            })
+          ) : (
+            <div className="bg-white p-10 rounded-2xl text-center shadow-sm">
+              <p className="text-gray-400">V databázi nejsou žádné události.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
