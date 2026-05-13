@@ -105,8 +105,8 @@ export default function EventDetail() {
             <h2 className="text-2xl font-black mb-4">Upravit událost</h2>
 
             <div>
-              <label className="block text-xs font-bold uppercase text-gray-400 mb-1">
-                Název
+              <label className="block text-xs font-bold text-gray-400 mb-1">
+                Název:
               </label>
               <input
                 type="text"
@@ -118,7 +118,7 @@ export default function EventDetail() {
 
             <div>
               <label className="block text-xs font-bold uppercase text-gray-400 mb-1">
-                Popis
+                Popis:
               </label>
               <textarea
                 className="w-full border-2 p-3 rounded-xl h-32 focus:border-blue-500 outline-none"
