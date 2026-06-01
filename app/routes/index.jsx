@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 import Header from "../components/header";
 import EventItem from "../components/EventItem";
 import { selectRecords } from "../server/sql";
@@ -113,8 +114,12 @@ export default function Home() {
               </p>
             )}
           </div>
+          
         )}
       </main>
+      <Link to="/events/new" className="fixed bottom-0 left-0 w-full flex justify-center items-center rounded-t-3xl bg-blue-500 hover:bg-blue-600 text-white py-4 text-2xl transition-colors">
+        +
+      </Link>
     </div>
   );
 }

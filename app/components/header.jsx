@@ -13,12 +13,7 @@ export default function Header() {
       <h1 className="text-2xl font-medium">Eliška Nováková</h1>
 
       {/* Tlačítko teď funguje jako odkaz na formulář */}
-      <Link
-        to="/events/new"
-        className="flex items-center justify-center rounded-full bg-blue-500 hover:bg-blue-600 text-white w-12 h-12 text-2xl transition-colors"
-      >
-        +
-      </Link>
+
     </header>
   );
 }
