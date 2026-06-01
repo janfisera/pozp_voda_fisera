@@ -12,8 +12,12 @@ export default function Header() {
       </Link>
       <h1 className="text-2xl font-medium">Eliška Nováková</h1>
 
-      {/* Tlačítko teď funguje jako odkaz na formulář */}
-
+      {/* Tlačítko odhlášení */}
+      <Link to="/login" className="p-2 rounded-full hover:bg-gray-100 transition-colors">
+        <img src="https://cdn-icons-png.flaticon.com/128/4400/4400629.png" alt="LogOut"className="h-6 w-6"
+        />
+      </Link>
     </header>
   );
 }
+
