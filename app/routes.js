@@ -6,4 +6,5 @@ export default [
   route("events", "./routes/events.jsx"),
   route("events/new", "./routes/new-event.jsx"),
   route("events/:id", "./routes/event-detail.jsx"),
+  route("settings", "./routes/settings.jsx"),
 ];
