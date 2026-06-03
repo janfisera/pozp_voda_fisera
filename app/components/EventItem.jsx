@@ -1,3 +1,15 @@
+/**
+ * EventItem component for displaying a single event card.
+ * @component
+ * @param {Object} props - Component props.
+ * @param {Object} props.event - Event data object.
+ * @param {string} props.icon - Icon URL for the subject.
+ * @returns {JSX.Element} The rendered event card.
+ *
+ * Features:
+ * - Formats event date.
+ * - Highlights test events with a colored border.
+ */
 import React from "react";
 import { useNavigate } from "react-router"; // Opraveno z 'react-router-dom'
 

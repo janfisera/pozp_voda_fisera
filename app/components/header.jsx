@@ -1,11 +1,34 @@
-import { Link } from "react-router";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router";
 
 /**
- * Komponenta záhlaví aplikace.
- * Obsahuje odkaz na hlavní stránku přes profilový avatar a nové tlačítko nastavení.
+ * Header component for the app top navigation.
  * @component
+ * @returns {JSX.Element} The header with avatar and settings link.
+ *
+ * Features:
+ * - Displays user avatar and app title.
+ * - Provides navigation to the main page and settings.
  */
 export default function Header() {
+  const location = useLocation(); // Sleduje změny adresy pro okamžité překreslení jména
+  const [user, setUser] = useState(null);
+
+  // Načtení uživatele z localStorage při každé změně stránky
+  useEffect(() => {
+    const loggedUserStr = localStorage.getItem("loggedUser");
+    if (loggedUserStr) {
+      try {
+        setUser(JSON.parse(loggedUserStr));
+      } catch (e) {
+        console.error("Chyba při parsování uživatele v Headeru:", e);
+        setUser(null);
+      }
+    } else {
+      setUser(null);
+    }
+  }, [location]);
+
   return (
     <header className="flex items-center justify-between p-4 border-b-2 bg-white">
       {/* Kliknutím na profilový obrázek se uživatel vrátí na hlavní přehled */}
@@ -17,8 +40,10 @@ export default function Header() {
         />
       </Link>
 
-      {/* Jméno uživatele centrované uprostřed hlavičky */}
-      <h1 className="text-2xl font-medium">Eliška Nováková</h1>
+      {/* Jméno uživatele se teď mění dynamicky podle přihlášeného člověka */}
+      <h1 className="text-2xl font-medium">
+        {user ? `${user.jmeno} ${user.prijmeni}` : "Nepřihlášený uživatel"}
+      </h1>
 
       {/* NOVÉ: Tlačítko nastavení, které odkazuje na správu účtu */}
       <Link

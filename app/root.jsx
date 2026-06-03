@@ -1,3 +1,7 @@
+/**
+ * Root application layout and error boundary.
+ * @file Defines HTML shell, link tags, and error handling UI.
+ */
 import {
   isRouteErrorResponse,
   Links,

@@ -1,3 +1,7 @@
+/**
+ * Authentication helpers using browser localStorage.
+ * @file Exposes login/logout and session validation helpers.
+ */
 // Auth helper functions
 // Těchto funkcí můžeš použít k ověření autentizace
 
