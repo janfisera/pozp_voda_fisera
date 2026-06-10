@@ -30,7 +30,7 @@ export default function Header() {
   }, [location]);
 
   return (
-    <header className="flex items-center justify-between p-4 border-b-2 bg-white">
+    <header className="flex items-center justify-between p-4 border-b-2 bg-white lg:bg-zinc-300">
       {/* Kliknutím na profilový obrázek se uživatel vrátí na hlavní přehled */}
       <Link to="/" className="flex-shrink-0">
         <img

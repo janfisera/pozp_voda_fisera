@@ -65,7 +65,7 @@ export default function Home() {
   const displayedEvents = showAll ? filteredEvents : filteredEvents.slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-[#F3F4F6]">
+    <div className="min-h-screen bg-[#F3F4F6] lg:bg-zinc-700">
       <Header />
 
       <main className="max-w-2xl mx-auto p-4">
@@ -79,8 +79,8 @@ export default function Home() {
             className={`px-6 py-2 rounded-full font-bold text-sm transition-all border-2 cursor-pointer
               ${
                 activeFilter === "Vše"
-                  ? "bg-[#4E56FF] text-white border-[#4E56FF]"
-                  : "bg-white text-gray-500 border-gray-100 hover:border-gray-300"
+                  ? "bg-[#4E56FF] text-white border-[#4E56FF] lg:bg-black"
+                  : "bg-white text-gray-500 border-gray-100 hover:border-gray-300 lg:bg-black lg:text-white"
               }`}
           >
             Vše
@@ -96,8 +96,8 @@ export default function Home() {
               className={`flex items-center gap-2 px-5 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-all border-2 cursor-pointer
                 ${
                   activeFilter === sub.zkratka
-                    ? "bg-[#4E56FF] text-white border-[#4E56FF]"
-                    : "bg-white text-gray-500 border-gray-100 hover:border-gray-300"
+                    ? "bg-[#4E56FF] text-white border-[#4E56FF] lg:bg-black"
+                    : "bg-white text-gray-500 border-gray-100 hover:border-gray-300 lg:bg-zinc-700 lg:text-white"
                 }`}
             >
               <img
