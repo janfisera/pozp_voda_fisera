@@ -65,7 +65,7 @@ export default function EventDetail() {
 
   if (loading)
     return (
-      <div className="min-h-screen bg-[#F3F4F6] flex items-center justify-center p-10 text-center uppercase font-black text-gray-400">
+      <div className="min-h-screen bg-[#F3F4F6] flex items-center justify-center p-10 text-center uppercase font-black text-gray-400 ">
         Načítám detail...
       </div>
     );
@@ -78,7 +78,7 @@ export default function EventDetail() {
 
   return (
     <>
-      <section className="bg-[#F3F4F6] min-h-screen pb-12">
+      <section className="bg-[#F3F4F6] min-h-screen pb-12 lg:bg-zinc-700 text-white">
         <Header />
         <div className="max-w-xl mx-auto p-4 md:p-6 pt-10">
           {!isEditing ? (
@@ -121,9 +121,9 @@ export default function EventDetail() {
             /* --- MÓD EDITACE (FORMULÁŘ) --- */
             <form
               onSubmit={handleUpdate}
-              className="bg-white rounded-3xl shadow-sm p-6 sm:p-8 space-y-5 border border-gray-100"
+              className="bg-white rounded-3xl shadow-sm p-6 sm:p-8 space-y-5 border border-gray-100 lg:bg-zinc-900 lg:text-white"
             >
-              <h2 className="text-xl font-bold text-gray-800 text-center mb-2">
+              <h2 className="text-xl font-bold text-gray-800 text-center mb-2 lg:text-white">
                 Upravit událost
               </h2>
 
@@ -134,7 +134,7 @@ export default function EventDetail() {
                 <input
                   type="text"
                   required
-                  className="w-full border border-gray-200 p-3 rounded-xl focus:border-blue-500 outline-none text-sm"
+                  className="w-full border border-gray-200 p-3 rounded-xl focus:border-blue-500 outline-none text-sm lg:bg-zinc-700 lg:text-white"
                   value={event.nazev || ""}
                   onChange={(e) =>
                     setEvent({ ...event, nazev: e.target.value })
@@ -149,7 +149,7 @@ export default function EventDetail() {
                 <input
                   type="date"
                   required
-                  className="w-full border border-gray-200 p-3 rounded-xl focus:border-blue-500 outline-none text-sm"
+                  className="w-full border border-gray-200 p-3 rounded-xl focus:border-blue-500 outline-none text-sm lg:bg-zinc-700 lg:text-white"
                   value={event.datum || ""}
                   onChange={(e) =>
                     setEvent({ ...event, datum: e.target.value })
@@ -164,7 +164,7 @@ export default function EventDetail() {
                 <input
                   type="text"
                   required
-                  className="w-full border border-gray-200 p-3 rounded-xl focus:border-blue-500 outline-none text-sm"
+                  className="w-full border border-gray-200 p-3 rounded-xl focus:border-blue-500 outline-none text-sm lg:bg-zinc-700 lg:text-white"
                   value={event.zkratka || ""}
                   onChange={(e) =>
                     setEvent({ ...event, zkratka: e.target.value })
@@ -177,7 +177,7 @@ export default function EventDetail() {
                   Popis:
                 </label>
                 <textarea
-                  className="w-full border border-gray-200 p-3 rounded-xl h-32 focus:border-blue-500 outline-none text-sm resize-none"
+                  className="w-full border border-gray-200 p-3 rounded-xl h-32 focus:border-blue-500 outline-none text-sm resize-none lg:bg-zinc-700 lg:text-white"
                   value={event.popis || ""}
                   onChange={(e) =>
                     setEvent({ ...event, popis: e.target.value })
@@ -206,7 +206,7 @@ export default function EventDetail() {
               <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white font-bold py-3.5 px-6 rounded-xl hover:bg-blue-600 transition-colors text-sm flex items-center justify-center gap-2 order-1 sm:order-2 cursor-pointer"
+                  className="w-full bg-blue-500 text-white font-bold py-3.5 px-6 rounded-xl hover:bg-blue-600 transition-colors text-sm flex items-center justify-center gap-2 order-1 sm:order-2 cursor-pointer "
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +223,7 @@ export default function EventDetail() {
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="w-full bg-gray-100 text-gray-600 font-bold py-3.5 px-6 rounded-xl hover:bg-gray-200 transition-colors text-sm flex items-center justify-center order-2 sm:order-1 cursor-pointer"
+                  className="w-full bg-gray-100 text-gray-600 font-bold py-3.5 px-6 rounded-xl hover:bg-gray-200 transition-colors text-sm flex items-center justify-center order-2 sm:order-1 cursor-pointer lg:bg-zinc-900 lg:hover:bg-zinc-800 lg:text-white"
                 >
                   Zrušit
                 </button>

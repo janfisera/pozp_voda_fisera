@@ -79,11 +79,11 @@ export default function NewEvent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F3F4F6] pb-12">
+    <div className="min-h-screen bg-[#F3F4F6] pb-12 lg:bg-zinc-700">
       <Header />
-      <main className="max-w-md mx-auto p-4 mt-6 md:mt-10">
-        <div className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-sm border border-gray-100">
-          <h2 className="text-lg font-bold text-gray-800 text-center mb-6">
+      <main className="max-w-md mx-auto p-4 mt-6 md:mt-10 ">
+        <div className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-sm border border-gray-100 lg:bg-zinc-900">
+          <h2 className="text-lg font-bold text-gray-800 text-center mb-6 lg:text-white">
             Nová událost
           </h2>
 
@@ -96,7 +96,7 @@ export default function NewEvent() {
                 required
                 maxLength={50} // Ochrana DB před přetečením znaků
                 placeholder="Např. Čtvrtletní práce"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all lg:bg-zinc-700 text-white"
                 value={formData.nazev}
                 onChange={(e) =>
                   setFormData({ ...formData, nazev: e.target.value })
@@ -111,7 +111,7 @@ export default function NewEvent() {
               </label>
               <select
                 required
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer lg:bg-zinc-700 text-white"
                 value={formData.zkratka}
                 onChange={(e) =>
                   setFormData({ ...formData, zkratka: e.target.value })
@@ -132,7 +132,7 @@ export default function NewEvent() {
               <input
                 type="date"
                 required
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-blue-500 outline-none transition-all lg:bg-zinc-700 text-white"
                 value={formData.datum}
                 onChange={(e) =>
                   setFormData({ ...formData, datum: e.target.value })
@@ -146,7 +146,7 @@ export default function NewEvent() {
               <textarea
                 placeholder="Co se bude zkoušet..."
                 maxLength={250} // Ochrana DB
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm h-28 resize-none focus:border-blue-500 outline-none transition-all"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm h-28 resize-none focus:border-blue-500 outline-none transition-all lg:bg-zinc-700 text-white"
                 value={formData.popis}
                 onChange={(e) =>
                   setFormData({ ...formData, popis: e.target.value })
@@ -181,7 +181,7 @@ export default function NewEvent() {
               <button
                 type="button"
                 onClick={() => navigate("/")}
-                className="w-full bg-gray-100 text-gray-600 font-bold py-3.5 rounded-full text-sm cursor-pointer hover:bg-gray-200 transition-colors"
+                className="w-full bg-gray-100 text-gray-600 font-bold py-3.5 rounded-full text-sm cursor-pointer hover:bg-gray-200 transition-colors lg:bg-zinc-700 lg:text-white lg:hover:bg-zinc-600"
               >
                 Zrušit
               </button>
