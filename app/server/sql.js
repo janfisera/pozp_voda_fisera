@@ -1,3 +1,7 @@
+/**
+ * SQL helper module for server communication.
+ * @file Sends queries and provides CRUD helpers for the backend.
+ */
 const database = "3it_fiseraj23";
 const username = "fiseraj23";
 const password = "MotorkyJednou789";
@@ -27,13 +31,6 @@ export async function sql(sql) {
   }
 }
 
-
-
-
-
-
-
-
 // Funkce pro DELETE - smazání záznamu z tabulky
 export async function deleteRecord(table, id) {
   const query = `DELETE FROM ${table} WHERE id = ${parseInt(id)}`;
@@ -43,7 +40,7 @@ export async function deleteRecord(table, id) {
 // Funkce pro UPDATE - editaci záznamu v tabulce
 export async function updateRecord(table, id, updates) {
   const id_safe = parseInt(id);
-  
+
   const setClause = Object.entries(updates)
     .map(([key, value]) => {
       if (typeof value === "string") {
@@ -77,7 +74,7 @@ export async function insertRecord(table, data) {
 
 // Funkce pro SELECT - čtení dat z tabulky
 export async function selectRecords(table, whereClause = "") {
-  const query = whereClause 
+  const query = whereClause
     ? `SELECT * FROM ${table} WHERE ${whereClause}`
     : `SELECT * FROM ${table}`;
   return await sql(query);

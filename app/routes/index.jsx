@@ -1,10 +1,20 @@
+/**
+ * Home page component displaying the user's events.
+ * @component
+ * @returns {JSX.Element} The dashboard with event filters and list view.
+ *
+ * Features:
+ * - Loads events and subjects for the current user.
+ * - Filters events by subject and toggles full list view.
+ */
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Header from "../components/header";
 import EventItem from "../components/EventItem";
 import { selectRecords } from "../server/sql";
 
 export default function Home() {
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,8 +26,24 @@ export default function Home() {
   useEffect(() => {
     async function loadData() {
       try {
-        const eventsData = await selectRecords("pzop_event");
+        // 1. Zkontrolujeme, zda máme přihlášeného uživatele v localStorage
+        const loggedUserStr = localStorage.getItem("loggedUser");
+
+        if (!loggedUserStr) {
+          // Pokud nikdo přihlášený není, pošleme ho na login
+          navigate("/login");
+          return;
+        }
+
+        const user = JSON.parse(loggedUserStr);
+
+        // 2. Vytáhneme z DB POUZE úkoly, které patří přihlášenému uživateli
+        const eventsData = await selectRecords(
+          "pzop_event",
+          `user_id = ${parseInt(user.id)}`,
+        );
         const subjectsData = await selectRecords("pzop_subject");
+
         if (eventsData) setEvents(eventsData);
         if (subjectsData) setSubjects(subjectsData);
       } catch (err) {
@@ -27,19 +53,19 @@ export default function Home() {
       }
     }
     loadData();
-  }, []);
+  }, [navigate]);
 
-  // 1. Filtrace událostí podle vybraného předmětu
+  // Filtrace událostí podle vybraného předmětu
   const filteredEvents =
     activeFilter === "Vše"
       ? events
       : events.filter((e) => e.zkratka === activeFilter);
 
-  // 2. Stránkování (Zobrazit jen 4 nebo vše)
+  // Stránkování (Zobrazit jen 4 nebo vše)
   const displayedEvents = showAll ? filteredEvents : filteredEvents.slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#F3F4F6]">
       <Header />
 
       <main className="max-w-2xl mx-auto p-4">
@@ -50,10 +76,10 @@ export default function Home() {
               setActiveFilter("Vše");
               setShowAll(false);
             }}
-            className={`px-6 py-2 rounded-full font-bold text-sm transition-all border-2 
+            className={`px-6 py-2 rounded-full font-bold text-sm transition-all border-2 cursor-pointer
               ${
                 activeFilter === "Vše"
-                  ? "bg-blue-600 text-white border-blue-600"
+                  ? "bg-[#4E56FF] text-white border-[#4E56FF]"
                   : "bg-white text-gray-500 border-gray-100 hover:border-gray-300"
               }`}
           >
@@ -67,10 +93,10 @@ export default function Home() {
                 setActiveFilter(sub.zkratka);
                 setShowAll(false);
               }}
-              className={`flex items-center gap-2 px-5 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-all border-2 
+              className={`flex items-center gap-2 px-5 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-all border-2 cursor-pointer
                 ${
                   activeFilter === sub.zkratka
-                    ? "bg-blue-600 text-white border-blue-600"
+                    ? "bg-[#4E56FF] text-white border-[#4E56FF]"
                     : "bg-white text-gray-500 border-gray-100 hover:border-gray-300"
                 }`}
             >
@@ -85,11 +111,11 @@ export default function Home() {
         </div>
 
         {loading ? (
-          <div className="text-center py-10 font-bold text-gray-300">
-            NAČÍTÁM...
+          <div className="text-center py-10 font-bold text-gray-400 text-sm tracking-wider uppercase">
+            NAČÍTÁM ÚKOLY...
           </div>
         ) : (
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-3">
             {displayedEvents.map((event) => (
               <EventItem
                 key={event.id}
@@ -102,22 +128,26 @@ export default function Home() {
             {!showAll && filteredEvents.length > 4 && (
               <button
                 onClick={() => setShowAll(true)}
-                className="mt-4 w-full bg-white border-2 border-blue-500 text-blue-500 font-bold py-4 rounded-[2rem] hover:bg-blue-50 transition-all"
+                className="mt-2 w-full bg-white border border-gray-200 text-gray-600 font-bold py-4 rounded-2xl hover:bg-gray-50 transition-all text-sm cursor-pointer shadow-sm"
               >
                 Zobrazit vše ({filteredEvents.length})
               </button>
             )}
 
             {filteredEvents.length === 0 && (
-              <p className="text-center text-gray-400 py-10">
+              <p className="text-center text-gray-400 py-12 text-sm">
                 Žádné události pro tento předmět.
               </p>
             )}
           </div>
-          
         )}
       </main>
-      <Link to="/events/new" className="fixed bottom-0 left-0 w-full flex justify-center items-center rounded-t-3xl bg-blue-500 hover:bg-blue-600 text-white py-4 text-2xl transition-colors">
+
+      {/* Responzivní plovoucí plusko pro nový úkol */}
+      <Link
+        to="/events/new"
+        className="fixed bottom-6 right-6 w-14 h-14 flex justify-center items-center rounded-full bg-[#4E56FF] hover:bg-blue-600 text-white text-2xl transition-all shadow-lg active:scale-95 z-50"
+      >
         +
       </Link>
     </div>
